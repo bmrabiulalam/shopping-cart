@@ -78,7 +78,7 @@
    </section>
 
    <script>
-      
+
       let item1Price = 1219,
           item2Price = 59,
           subTotal = 0,
@@ -143,8 +143,8 @@
       window.addEventListener('load', () => {
          calculateItemPrice('item1-price', item1Price, +document.getElementById('item1-input').value);
          calculateItemPrice('item2-price', item2Price, +document.getElementById('item2-input').value);
-         document.getElementById('tax').innerText = tax;
          calculateTotalPrice();
+         document.getElementById('tax').innerText = tax;
       });
 
    </script>
