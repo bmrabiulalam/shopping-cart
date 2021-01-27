@@ -16,7 +16,7 @@
       <div class="container">
          <div class="cart">
             <div class="col-md-12 col-lg-10 mx-auto">
-               <div class="cart-item">
+               <div id="ci1" class="cart-item">
                   <div class="row">
                      <div class="col-md-7 center-item">
                         <img src="images/product-1.png" alt="">
@@ -30,7 +30,7 @@
                            <button id="item1-plus" class="btn btn-default"><i class="fas fa-plus"></i></button>
                         </div>
                         <h5>$<span id="item1-price">1219</span></h5>
-                        <img src="images/remove.png" alt="" class="remove-item">
+                        <a class="remove-item" href=""><img src="images/remove.png" alt="" class="remove-item"></a>
                      </div>
                   </div>
                </div>
@@ -48,7 +48,7 @@
                            <button id="item2-plus" class="btn btn-default"><i class="fas fa-plus"></i></button>
                         </div>
                         <h5>$<span id="item2-price">59</span></h5>
-                        <img src="images/remove.png" alt="" class="remove-item">
+                        <a class="remove-item" href=""><img src="images/remove.png" alt="" class="remove-item"></a>
                      </div>
                   </div>
                </div>
@@ -142,12 +142,34 @@
          increaseItem('item2-input', 'item2-price', item2Price);
       });
 
+      // keypress / keyup / change all events can be used
+
+      document.getElementById('item1-input').addEventListener('keyup', () => {
+         calculateItemPrice('item1-price', item1Price, +document.getElementById('item1-input').value);
+         calculateTotalPrice();
+         document.getElementById('tax').innerText = tax;
+      });
+
+      document.getElementById('item2-input').addEventListener('keyup', () => {
+         calculateItemPrice('item2-price', item2Price, +document.getElementById('item2-input').value);
+         calculateTotalPrice();
+         document.getElementById('tax').innerText = tax;
+      });
+
       window.addEventListener('load', () => {
          calculateItemPrice('item1-price', item1Price, +document.getElementById('item1-input').value);
          calculateItemPrice('item2-price', item2Price, +document.getElementById('item2-input').value);
          calculateTotalPrice();
          document.getElementById('tax').innerText = tax;
       });
+
+      // const rmItem = document.getElementsByClassName('remove-item');
+      // rmItem[0].addEventListener('click', e => {
+      //    e.preventDefault();
+      //    document.getElementById('ci1').remove();
+      //    calculateTotalPrice();
+      //    document.getElementById('tax').innerText = tax;
+      // });
 
    </script>
 
