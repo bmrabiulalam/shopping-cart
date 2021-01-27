@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <title>Shopping Cart</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
+   <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+
+   <section>
+      <div class="container">
+         <div class="cart">
+            <div class="col-md-12 col-lg-10 mx-auto">
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item">
+                        <img src="images/product-1.png" alt="">
+                        <h5>iPhone 11 128GB Black</h5>
+                     </div>
+
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button id="item1-minus" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="item1-input" type="text" class="form-control text-center" value="1">
+                           <button id="item1-plus" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <h5>$<span id="item1-price">1219</span></h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item mx-auto">
+                        <img src="images/product-2.png" alt="">
+                        <h5>iPhone 11 Silicone Case - Black</h5>
+                     </div>
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button id="item2-minus" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="item2-input" type="text" class="form-control text-center" value="1">
+                           <button id="item2-plus" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <h5>$<span id="item2-price">59</span></h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+
+                     <div class="col-md-8">
+                        <h5>Subtotal: </h5>
+                        <h5>Tax:</h5>
+                        <h5>Total:</h5>
+                     </div>
+
+                     <div class="col-md-4 status">
+                        <h5>$<span id="sub-total">1219</span></h5>
+                        <h5>$<span id="tax">0</span></h5>
+                        <h5>$<span id="total">1219</span></h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-12 pt-4 pb-4">
+                  <button type="button" class="btn btn-success check-out">Check Out</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+
+   <script>
+      let item1Price = 1219,
+          item2Price = 59,
+          subTotal = 0,
+          total = 0,
+          taxRate = 10;
+          tax = 0;
+
+      function calculateItemPrice(itemPriceId, perItemPrice, itemCount) {
+         const itemTotalPrice = perItemPrice * itemCount;
+         document.getElementById(itemPriceId).innerText = itemTotalPrice;
+      }
+
+      function calculateTotalPrice() {
+         subTotal = +document.getElementById('item1-price').innerText 
+                    + +document.getElementById('item2-price').innerText;
+         document.getElementById('sub-total').innerText = subTotal;
+         tax = subTotal * taxRate / 100;
+         total = subTotal - tax;
+         document.getElementById('total').innerText = total;
+      }
+
+      function decreaseItem(itemCountId, itemPriceId, perItemPrice) {
+         const itemInput = document.getElementById(itemCountId);
+         const parsedItemInput = +itemInput.value; // parseFloat() can also be used
+         if (parsedItemInput > 1) {
+            const newItemCount = parsedItemInput - 1;
+            itemInput.value = newItemCount;
+            calculateItemPrice(itemPriceId, perItemPrice, newItemCount);
+            calculateTotalPrice();
+         }
+      }
+
+      function increaseItem(itemCountId, itemPriceId, perItemPrice) {
+         const itemInput = document.getElementById(itemCountId);
+         const parsedItemInput = +itemInput.value; // parseFloat() can also be used
+         const newItemCount = parsedItemInput + 1;
+         itemInput.value = newItemCount;
+         calculateItemPrice(itemPriceId, perItemPrice, newItemCount);
+         calculateTotalPrice();
+      }
+
+      const item1Minus = document.getElementById('item1-minus');
+      item1Minus.addEventListener('click', () => {
+         decreaseItem('item1-input', 'item1-price', item1Price);
+      });
+
+      const item1Plus = document.getElementById('item1-plus');
+      item1Plus.addEventListener('click', () => {
+         increaseItem('item1-input', 'item1-price', item1Price);
+      });
+
+      const item2Minus = document.getElementById('item2-minus');
+      item2Minus.addEventListener('click', () => {
+         decreaseItem('item2-input', 'item2-price', item2Price);
+      });
+
+      const item2Plus = document.getElementById('item2-plus');
+      item2Plus.addEventListener('click', () => {
+         increaseItem('item2-input', 'item2-price', item2Price);
+      });
+
+      window.addEventListener('load', () => {
+         calculateItemPrice('item1-price', item1Price, +document.getElementById('item1-input').value);
+         calculateItemPrice('item2-price', item2Price, +document.getElementById('item2-input').value);
+         document.getElementById('tax').innerText = tax;
+         calculateTotalPrice();
+      });
+   </script>
+
+</body>
+
+</html>
