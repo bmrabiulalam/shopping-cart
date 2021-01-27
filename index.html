@@ -108,6 +108,7 @@
             itemInput.value = newItemCount;
             calculateItemPrice(itemPriceId, perItemPrice, newItemCount);
             calculateTotalPrice();
+            document.getElementById('tax').innerText = tax;
          }
       }
 
@@ -118,6 +119,7 @@
          itemInput.value = newItemCount;
          calculateItemPrice(itemPriceId, perItemPrice, newItemCount);
          calculateTotalPrice();
+         document.getElementById('tax').innerText = tax;
       }
 
       const item1Minus = document.getElementById('item1-minus');
